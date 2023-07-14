@@ -1,4 +1,11 @@
-- [ ] Complete README file
-- [ ] Find related repository and evaluate it
-- [ ] Test tkinter-data-entry repository and get it running, reporting on any issues and documenting how to make it work
-- [ ] Create separate repository in Assignment Tracker team for development code
+- [X] Create README file
+- [X] Upload code from existing repo: tkinter-data-entry
+- [ ] Test existing repo and note any issues that surface
+- [ ] Create separate repo for development code
+- [ ] Clone repos for existing code & development code to Github Desktop
+- [ ] Analyze existing repo in VS Code, noting the function/purpose of each section of code
+- [ ] Create outline for program with comments in development repo main.py
+- [ ] Implement changes for assignment tracker program in development code
+- [ ] Test assignment tracker program, noting any issues
+- [ ] Resolve issues & re-test
+- [ ] Create PPT slide for final presentation
