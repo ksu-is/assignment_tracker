@@ -1,0 +1,4 @@
+- [ ] Complete README file
+- [ ] Find related repository and evaluate it
+- [ ] Test tkinter-data-entry repository and get it running, reporting on any issues and documenting how to make it work
+- [ ] Create separate repository in Assignment Tracker team for development code
