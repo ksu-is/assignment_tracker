@@ -1,7 +1,7 @@
 - [X] Create README file
 - [X] Upload code from existing repo: tkinter-data-entry
-- [ ] Test existing repo and note any issues that surface
-- [ ] Create separate repo for development code
+- [X] Test existing repo and note any issues that surface
+- [X] Create separate repo for development code
 - [ ] Clone repos for existing code & development code to Github Desktop
 - [ ] Analyze existing repo in VS Code, noting the function/purpose of each section of code
 - [ ] Create outline for program with comments in development repo main.py
