@@ -114,15 +114,14 @@ def add_coursework():
     am_pm_combobox = ttk.Combobox(due_date_frame, values=["AM", "PM"], width=3)
     am_pm_combobox.grid(row=6, column=3)
 
+    '''
     def submit():
         title = title_entry.get()
         if title:
             print("Confirmation: " + title + " has been added to your planner.")
         else:
             messagebox.showwarning(title="Error", message="Title is required.")
-
-    button = Button(frame, text="Submit", command=write_excel)
-    button.grid(row=8, column=0, columnspan=2, padx=10, pady=10)
+    '''
 
     # write to excel
     def write_excel():
@@ -148,6 +147,9 @@ def add_coursework():
         workbook.save(filepath)
         messagebox.showinfo(title="Confirmation", message="Your assignment has been added to your planner.")
 
+    button = Button(frame, text="Submit", command=write_excel)
+    button.grid(row=8, column=0, columnspan=2, padx=10, pady=10)
+
     window.mainloop()
 
 # option 2: view calendar
@@ -163,6 +165,7 @@ def view_calendar():
 
     def grab_date():
         my_label.config(text="Your assignments for " + cal.get_date() + " are:")
+
         
     my_button = Button(window, text="Get Date", command=grab_date)
     my_button.pack(pady=20)
@@ -180,8 +183,11 @@ def view_courses():
     frame = Frame(window)
     frame.pack()
 
-    courses_listbox = Listbox(frame, text=semester_combobox.get() + " Courses")
-    courses_listbox.grid(row=0, column=0, padx=10, pady=10)
+    course_list_heading = semester_combobox.get() + " " + academic_year_spinbox.get() + " Courses"
+    courses_label = Label(frame, text=course_list_heading, font=('Palatino', 25))
+    courses_label.grid(row=0, column=0, padx=10, pady=10)
+    courses_listbox = Listbox(frame)
+    courses_listbox.grid(row=1, column=0, padx=10, pady=10)
     for item in courses_list(courses_entry):
         courses_listbox.insert(END, " " + item)
     # test --> courses_list(courses_entry) (possibly str(courses_list(courses_entry)), extra space currently before each course)
