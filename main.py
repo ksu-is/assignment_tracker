@@ -1,11 +1,12 @@
 # Base code found at: https://github.com/codefirstio/tkinter-data-entry.git
 
 from tkinter import *
+from tkcalendar import *
 from tkinter import ttk
 from tkinter import messagebox
 import datetime
 
-def options():
+def my_options():
     window = Tk()
     window.title("Menu")
 
@@ -23,7 +24,7 @@ def options():
     menu_frame = LabelFrame(frame)
     menu_frame.grid(row=1, column=0, padx=10, pady=10)
         # option 1: add coursework
-    option_1_button = Button(menu_frame, text="[1] Add Assignment", command=add_coursework)
+    option_1_button = Button(menu_frame, text="[1] Add Assignment", command=my_coursework)
     option_1_button.grid(row=1, column=0)
 
         # option 2: view calendar
@@ -37,14 +38,31 @@ def options():
     window.mainloop()
 
 def my_calendar():
-    print()
     # view calendar with daily assignments
+    # Calendar tutorial found at: https://youtu.be/fqfy-3IoVvs
+    # Calendar help: https://python-forum.io/thread-26731.html
+    window = Tk()
+
+    today = datetime.date.today()
+    cal = Calendar(window, selectmode="day", font=('Palatino', 25), year=today.year, month=today.month, day=today.day)
+    cal.pack(pady=20)
+
+    def grab_date():
+        my_label.config(text="Your assignments for " + cal.get_date() + " are:")
+        
+    my_button = Button(window, text="Get Date", command=grab_date)
+    my_button.pack(pady=20)
+
+    my_label = Label(window, text="")
+    my_label.pack(pady=20)
+
+    window.mainloop()
 
 def my_courses():
     print()
     # view course list for the semester
 
-def add_coursework():
+def my_coursework():
     # coursework information form
     window = Tk()
     window.title("Coursework Information Form")
@@ -164,7 +182,7 @@ def main():
     exit_button = Button(navigation_frame, text="Exit", command=window.quit)
     exit_button.grid(row=3, column=0)
 
-    continue_button = Button(navigation_frame, text="Continue")
+    continue_button = Button(navigation_frame, text="Continue", command=my_options)
     continue_button.grid(row=3, column=1)
 
     window.mainloop()
