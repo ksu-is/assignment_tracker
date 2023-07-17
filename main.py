@@ -35,6 +35,18 @@ courses_entry = Entry(user_info_frame)
 courses_entry.grid(row=2, column=1)
 courses_list = courses_entry.get().split(",")
 
+# navigation menu
+navigation_frame = LabelFrame(frame, text="Navigation Menu")
+navigation_frame.grid(row=2, column=0, padx=10, pady=10)
+
+exit_button = Button(navigation_frame, text="Exit", command=window.quit)
+exit_button.grid(row=3, column=0)
+
+continue_button = Button(navigation_frame, text="Continue")
+continue_button.grid(row=3, column=1)
+
+window.mainloop()
+
 # coursework information form
 window = Tk()
 window.title("Coursework Information Form")
