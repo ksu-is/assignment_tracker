@@ -5,6 +5,45 @@ from tkinter import ttk
 from tkinter import messagebox
 import datetime
 
+def options():
+    window = Tk()
+    window.title("Menu")
+
+    frame = Frame(window)
+    frame.pack()
+
+    # options frame
+    options_frame = LabelFrame(frame, text="Options")
+    options_frame.grid(row=0, column=0, padx=10, pady=10)
+
+    options_label = Label(options_frame, text="Review the available options. Make a selection to continue.")
+    options_label.grid(row=0, column=0, padx=10, pady=10)
+
+    # menu frame
+    menu_frame = LabelFrame(frame)
+    menu_frame.grid(row=1, column=0, padx=10, pady=10)
+        # option 1: add coursework
+    option_1_button = Button(menu_frame, text="[1] Add Assignment", command=add_coursework)
+    option_1_button.grid(row=1, column=0)
+
+        # option 2: view calendar
+    option_2_button = Button(menu_frame, text="[2] View Calendar", command=my_calendar)
+    option_2_button.grid(row=2, column=0)
+    
+        # option 3: view courses
+    option_3_button = Button(menu_frame, text="[3] View Courses", command=my_courses)
+    option_3_button.grid(row=3, column=0)
+
+    window.mainloop()
+
+def my_calendar():
+    print()
+    # view calendar with daily assignments
+
+def my_courses():
+    print()
+    # view course list for the semester
+
 def add_coursework():
     # coursework information form
     window = Tk()
