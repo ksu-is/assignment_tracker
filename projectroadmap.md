@@ -1,10 +1,11 @@
+# Project Road Map
 - [X] Create README file
 - [X] Upload code from existing repo: tkinter-data-entry
 - [X] Test existing repo and note any issues that surface
 - [X] Create separate repo for development code
 - [X] Clone repos for existing code & development code to Github Desktop
-- [ ] Analyze existing repo in VS Code, noting the function/purpose of each section of code
-- [ ] Create outline for program with comments in development repo main.py
+- [X] Analyze existing repo in VS Code, noting the function/purpose of each section of code
+- [ ] Place comments for code sections in development repo main.py
 - [ ] Implement changes for assignment tracker program in development code
 - [ ] Test assignment tracker program, noting any issues
 - [ ] Resolve issues & re-test
