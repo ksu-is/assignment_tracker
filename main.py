@@ -5,6 +5,8 @@ from tkcalendar import *
 from tkinter import ttk
 from tkinter import messagebox
 import datetime
+import os
+import openpyxl
 
 def my_options():
     window = Tk()
@@ -119,8 +121,32 @@ def my_coursework():
         else:
             messagebox.showwarning(title="Error", message="Title is required.")
 
-    button = Button(frame, text="Submit", command=submit)
+    button = Button(frame, text="Submit", command=write_excel)
     button.grid(row=8, column=0, columnspan=2, padx=10, pady=10)
+
+    # write to excel
+    def write_excel():
+        title = title_entry.get()
+        type = type_combobox.get()
+        course = course_combobox.get()
+        delivery = delivery_combobox.get()
+        due_date = month_combobox.get() + " " + day_spinbox.get() + ", " + year_spinbox.get()
+        due_time = hour_spinbox.get() + ":" + minute_spinbox.get() + " " + am_pm_combobox.get()
+        notes = notes_entry.get()
+
+        filepath = "D:\ksu-is\assignment_tracker\planner.xlsx"
+
+        if not os.path.exists(filepath):
+            workbook = openpyxl.Workbook()
+            sheet = workbook.active
+            heading = ["Title", "Type", "Course", "Delivery", "Due Date", "Due Time", "Notes"]
+            sheet.append(heading)
+            workbook.save(filepath)
+        workbook = openpyxl.load_workbook(filepath)
+        sheet = workbook.active
+        sheet.append([title, type, course, delivery, due_date, due_time, notes])
+        workbook.save(filepath)
+        messagebox.showinfo(title="Confirmation", message="Your assignment has been added to your planner.")
 
     window.mainloop()
 
@@ -212,7 +238,7 @@ navigation_frame.grid(row=4, column=0, padx=10, pady=10)
 exit_button = Button(navigation_frame, text="Exit", command=window.destroy)
 exit_button.grid(row=4, column=0)
 
-continue_button = Button(navigation_frame, text="Continue", command=my_options)
+continue_button = Button(navigation_frame, text="Continue", command=view_options)
 continue_button.grid(row=4, column=1)
 
 window.mainloop()
