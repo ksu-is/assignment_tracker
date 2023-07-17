@@ -37,31 +37,7 @@ def my_options():
 
     window.mainloop()
 
-def my_calendar():
-    # view calendar with daily assignments
-    # Calendar tutorial found at: https://youtu.be/fqfy-3IoVvs
-    # Calendar help: https://python-forum.io/thread-26731.html
-    window = Tk()
-
-    today = datetime.date.today()
-    cal = Calendar(window, selectmode="day", font=('Palatino', 25), year=today.year, month=today.month, day=today.day)
-    cal.pack(pady=20)
-
-    def grab_date():
-        my_label.config(text="Your assignments for " + cal.get_date() + " are:")
-        
-    my_button = Button(window, text="Get Date", command=grab_date)
-    my_button.pack(pady=20)
-
-    my_label = Label(window, text="")
-    my_label.pack(pady=20)
-
-    window.mainloop()
-
-def my_courses():
-    print()
-    # view course list for the semester
-
+# option 1: add coursework
 def my_coursework():
     # coursework information form
     window = Tk()
@@ -144,47 +120,81 @@ def my_coursework():
 
     window.mainloop()
 
-def main():
-    # home screen
+# option 2: view calendar
+def my_calendar():
+    # view calendar with daily assignments
+    # Calendar tutorial found at: https://youtu.be/fqfy-3IoVvs
+    # Calendar help: https://python-forum.io/thread-26731.html
     window = Tk()
-    window.title("Assignment Tracker")
+
+    today = datetime.date.today()
+    cal = Calendar(window, selectmode="day", font=('Palatino', 25), year=today.year, month=today.month, day=today.day)
+    cal.pack(pady=20)
+
+    def grab_date():
+        my_label.config(text="Your assignments for " + cal.get_date() + " are:")
+        
+    my_button = Button(window, text="Get Date", command=grab_date)
+    my_button.pack(pady=20)
+
+    my_label = Label(window, text="")
+    my_label.pack(pady=20)
+
+    window.mainloop()
+
+# option 3: view semester courses
+def my_courses():
+    window = Tk()
+    window.title("Course List")
 
     frame = Frame(window)
     frame.pack()
 
-        # Welcome Message
-    welcome_frame = LabelFrame(frame, text="Welcome Message")
-    welcome_frame.grid(row=0, column=0, padx=10, pady=10)
-    welcome_label = Label(welcome_frame, text="Welcome! This is a simple program to help you keep track of your coursework.\nTo begin, please enter your name and the courses you are taking this semester.\nNOTE: Separate courses with commas.")
-    welcome_label.grid(row=0, column=0, sticky="w")
+    courses_text = Text(frame, width=50, height=10)
+    courses_text.grid(row=0, column=0, padx=10, pady=10)
+    courses_text.insert(END, command=courses_list)
 
-        # User Information
-    user_info_frame = LabelFrame(frame, text="User Information")
-    user_info_frame.grid(row=1, column=0, padx=50, pady=10)
+# home screen
+window = Tk()
+window.title("Assignment Tracker")
 
-        # Name
-    name_label = Label(user_info_frame, text="Name:")
-    name_label.grid(row=1, column=0)
-    name_entry = Entry(user_info_frame)
-    name_entry.grid(row=1, column=1)
+frame = Frame(window)
+frame.pack()
 
-        # Courses
-    courses_label = Label(user_info_frame, text="Courses:")
-    courses_label.grid(row=2, column=0)
-    courses_entry = Entry(user_info_frame)
-    courses_entry.grid(row=2, column=1)
+    # Welcome Message
+welcome_frame = LabelFrame(frame, text="Welcome Message")
+welcome_frame.grid(row=0, column=0, padx=10, pady=10)
+welcome_label = Label(welcome_frame, text="Welcome! This is a simple program to help you keep track of your coursework.\nTo begin, please enter your name and the courses you are taking this semester.\nNOTE: Separate courses with commas.")
+welcome_label.grid(row=0, column=0, sticky="w")
+
+    # User Information
+user_info_frame = LabelFrame(frame, text="User Information")
+user_info_frame.grid(row=1, column=0, padx=50, pady=10)
+
+    # Name
+name_label = Label(user_info_frame, text="Name:")
+name_label.grid(row=1, column=0)
+name_entry = Entry(user_info_frame)
+name_entry.grid(row=1, column=1)
+
+    # Courses
+courses_label = Label(user_info_frame, text="Courses:")
+courses_label.grid(row=2, column=0)
+courses_entry = Entry(user_info_frame)
+courses_entry.grid(row=2, column=1)
+
+def courses_list():
     courses_list = courses_entry.get().split(",")
+    return courses_list
 
-    # navigation menu
-    navigation_frame = LabelFrame(frame, text="Navigation Menu")
-    navigation_frame.grid(row=2, column=0, padx=10, pady=10)
+# navigation menu
+navigation_frame = LabelFrame(frame, text="Navigation Menu")
+navigation_frame.grid(row=2, column=0, padx=10, pady=10)
 
-    exit_button = Button(navigation_frame, text="Exit", command=window.quit)
-    exit_button.grid(row=3, column=0)
+exit_button = Button(navigation_frame, text="Exit", command=window.quit)
+exit_button.grid(row=3, column=0)
 
-    continue_button = Button(navigation_frame, text="Continue", command=my_options)
-    continue_button.grid(row=3, column=1)
+continue_button = Button(navigation_frame, text="Continue", command=my_options)
+continue_button.grid(row=3, column=1)
 
-    window.mainloop()
-
-main()
+window.mainloop()
