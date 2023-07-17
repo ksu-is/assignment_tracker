@@ -2,6 +2,7 @@
 
 from tkinter import *
 from tkinter import ttk
+from tkinter import messagebox
 import datetime
 
 # coursework information form
@@ -72,5 +73,15 @@ minute_spinbox.grid(row=6, column=2)
         # AM/PM
 am_pm_combobox = ttk.Combobox(due_date_frame, values=["AM", "PM"], width=3)
 am_pm_combobox.grid(row=6, column=3)
+
+def submit():
+    title = title_entry.get()
+    if title:
+        print("Confirmation: " + title + " has been added to your planner.")
+    else:
+        messagebox.showwarning(title="Error", message="Title is required.")
+
+button = Button(frame, text="Submit", command=submit)
+button.grid(row=8, column=0, columnspan=2, padx=10, pady=10)
 
 window.mainloop()
