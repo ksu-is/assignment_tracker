@@ -8,7 +8,7 @@ import datetime
 import os
 import openpyxl
 
-def my_options():
+def view_options():
     window = Tk()
     window.title("Menu")
 
@@ -26,15 +26,15 @@ def my_options():
     menu_frame = LabelFrame(frame)
     menu_frame.grid(row=1, column=0, padx=10, pady=10)
         # option 1: add coursework
-    option_1_button = Button(menu_frame, text="[1] Add Assignment", command=my_coursework)
+    option_1_button = Button(menu_frame, text="[1] Add Assignment", command=add_coursework)
     option_1_button.grid(row=1, column=0)
 
         # option 2: view calendar
-    option_2_button = Button(menu_frame, text="[2] View Calendar", command=my_calendar)
+    option_2_button = Button(menu_frame, text="[2] View Calendar", command=view_calendar)
     option_2_button.grid(row=2, column=0)
     
         # option 3: view courses
-    option_3_button = Button(menu_frame, text="[3] View Courses", command=my_courses)
+    option_3_button = Button(menu_frame, text="[3] View Courses", command=view_courses)
     option_3_button.grid(row=3, column=0)
 
     window.mainloop()
@@ -44,7 +44,7 @@ def courses_list(new_entry):
     return courses_list
 
 # option 1: add coursework
-def my_coursework():
+def add_coursework():
     # coursework information form
     window = Tk()
     window.title("Coursework Information Form")
@@ -151,7 +151,7 @@ def my_coursework():
     window.mainloop()
 
 # option 2: view calendar
-def my_calendar():
+def view_calendar():
     # view calendar with daily assignments
     # Calendar tutorial found at: https://youtu.be/fqfy-3IoVvs
     # Calendar help: https://python-forum.io/thread-26731.html
@@ -173,7 +173,7 @@ def my_calendar():
     window.mainloop()
 
 # option 3: view courses
-def my_courses():
+def view_courses():
     window = Tk()
     window.title("Course List")
 
