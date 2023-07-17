@@ -5,6 +5,36 @@ from tkinter import ttk
 from tkinter import messagebox
 import datetime
 
+# home screen
+window = Tk()
+window.title("Assignment Tracker")
+
+frame = Frame(window)
+frame.pack()
+
+    # Welcome Message
+welcome_frame = LabelFrame(frame, text="Welcome Message")
+welcome_frame.grid(row=0, column=0, padx=10, pady=10)
+welcome_label = Label(welcome_frame, text="Welcome! This is a simple program to help you keep track of your coursework.\nTo begin, please enter your name and the courses you are taking this semester.\nNOTE: Separate courses with commas.")
+welcome_label.grid(row=0, column=0, sticky="w")
+
+    # User Information
+user_info_frame = LabelFrame(frame, text="User Information")
+user_info_frame.grid(row=1, column=0, padx=50, pady=10)
+
+    # Name
+name_label = Label(user_info_frame, text="Name:")
+name_label.grid(row=1, column=0)
+name_entry = Entry(user_info_frame)
+name_entry.grid(row=1, column=1)
+
+    # Courses
+courses_label = Label(user_info_frame, text="Courses:")
+courses_label.grid(row=2, column=0)
+courses_entry = Entry(user_info_frame)
+courses_entry.grid(row=2, column=1)
+courses_list = courses_entry.get().split(",")
+
 # coursework information form
 window = Tk()
 window.title("Coursework Information Form")
