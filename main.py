@@ -1,5 +1,5 @@
 # Base code found at: https://github.com/codefirstio/tkinter-data-entry.git
-# Tkinter tutorials - codemy youtube channel
+# Tkinter tutorials - codemy youtube channel & python docs - https://pythonbasics.org/
 
 from tkinter import *
 from tkcalendar import *
@@ -205,7 +205,7 @@ def add_coursework():
         sheet = workbook.active
         sheet.append([title, type, course, delivery, due_date, due_time, notes])
         workbook.save(filepath)
-        messagebox.showinfo(title="Confirmation", message="Your assignment has been added to your planner.")
+        messagebox.showinfo(title="Confirmation", message="Your assignment has been added to your Excel planner. Please open the file to view changes.")
         sort_excel(filepath)
 
     enter_frame.grid(row=10, column=0, padx=10, pady=10)
@@ -238,7 +238,7 @@ def view_calendar():
     window.mainloop()
 '''
 
-# option 3: view courses
+# option 2: view courses
 def view_courses():
     style = ttk.Style()
     style.theme_use("clam")
