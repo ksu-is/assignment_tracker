@@ -7,7 +7,7 @@
 - [X] Analyze existing repo in VS Code, noting the function/purpose of each section of code
 - [X] Place comments for code sections in development repo main.py
 - [X] Implement changes for assignment tracker program in development code:
-      - [X] Welcome screen
+&nbsp; - [ ] Welcome screen
       - [X] Exit option
       - [X] Add assignment
       - [X] View course list
