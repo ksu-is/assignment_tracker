@@ -1,5 +1,5 @@
 # Base code found at: https://github.com/codefirstio/tkinter-data-entry.git
-# Tkinter tutorials - codemy youtube channel
+# Tkinter tutorials - codemy youtube channel & python docs - https://pythonbasics.org/
 
 from tkinter import *
 from tkcalendar import *
@@ -92,8 +92,8 @@ def add_coursework():
 
     today = datetime.date.today()
     my_cal = Calendar(calendar_frame, selectmode="day", font=("Arial", 18), year=today.year, month=today.month, day=today.day, 
-                      background="grey", bordercolor="black", disabledbackground="grey", headersbackground="grey", normalbackground="grey", foreground="yellow", 
-                      normalforeground="black", headersforeground="blue")
+                      background="grey", bordercolor="black", disabledbackground="grey", headersbackground="grey", normalbackground="grey", 
+                      foreground="yellow", normalforeground="black", headersforeground="blue")
     my_cal.config(background="black")
     my_cal.grid(row=6, column=0, padx=20, pady=20)
 
@@ -155,15 +155,18 @@ def add_coursework():
         
         filepath = "D:\ksu-is\assignment_tracker\planner.xlsx"
 
-        def sort_excel():
+        def sort_excel(filepath):
             df = pd.read_excel(filepath)
-            df.sort_values(by=['Due Date', 'Due Time'], ascending=[True, True])
+            df = df.sort_values(by=['Due Date', 'Due Time'], ascending=[True, True])
+            df = df.to_excel(filepath, index=False)
             
+            '''
             with pd.ExcelWriter(filepath) as writer:
                 writer.book = openpyxl.load_workbook(filepath)
                 df.to_excel(writer, sheet_name='Planner')
             
-            '''# import pandas library and then read in the csv file and put the data in a Pandas dataframe (comments from video)
+            
+            # import pandas library and then read in the csv file and put the data in a Pandas dataframe (comments from video)
             # r is for raw string else is normal string literal and Python can't find the file (comments from video)
             filepath = 'd:/ksu-is/assignment_tracker/planner.xlsx'
             df = pd.read_excel(filepath)
@@ -188,7 +191,7 @@ def add_coursework():
         type = type_combobox.get()
         course = course_combobox.get()
         delivery = delivery_combobox.get()
-        due_date = set_date_label.get()
+        due_date = set_date_label.cget("text")
         due_time = hour_spinbox.get() + ":" + minute_spinbox.get() + " " + am_pm_combobox.get()
         notes = notes_entry.get()
 
@@ -202,8 +205,8 @@ def add_coursework():
         sheet = workbook.active
         sheet.append([title, type, course, delivery, due_date, due_time, notes])
         workbook.save(filepath)
-        messagebox.showinfo(title="Confirmation", message="Your assignment has been added to your planner.")
-        sort_excel()
+        messagebox.showinfo(title="Confirmation", message="Your assignment has been added to your Excel planner. Please open the file to view changes.")
+        sort_excel(filepath)
 
     enter_frame.grid(row=10, column=0, padx=10, pady=10)
     button = Button(enter_frame, text="Submit", command=write_excel, font=("Arial", 18))
@@ -211,6 +214,7 @@ def add_coursework():
 
     window.mainloop()
 
+'''
 # option 2: view calendar
 def view_calendar():
     # view calendar with daily assignments
@@ -222,9 +226,8 @@ def view_calendar():
     cal.pack(pady=20)
 
     def grab_date():
-        if cal.get_date():
-            pass
-        my_label.config(text="Your assignments for " + cal.get_date() + " are:")
+        if cal.get_date() == get_due_date(set_date_label):
+            my_label.config(text="Your assignments for " + cal.get_date() + " are:")
         
     my_button = Button(window, text="View Assignments", command=grab_date)
     my_button.pack(pady=20)
@@ -233,8 +236,9 @@ def view_calendar():
     my_label.pack(pady=20)
 
     window.mainloop()
+'''
 
-# option 3: view courses
+# option 2: view courses
 def view_courses():
     style = ttk.Style()
     style.theme_use("clam")
@@ -244,8 +248,8 @@ def view_courses():
     course_list_heading = semester_combobox.get() + " " + academic_year_spinbox.get() + " Courses"
     courses_label = Label(course_list_frame, text=course_list_heading, font=("Arial", 18))
     courses_label.grid(row=0, column=0, padx=10, pady=10)
-    courses_listbox = Listbox(course_list_frame)
-    courses_listbox.grid(row=1, column=0, padx=10, pady=10, font=("Arial", 18))
+    courses_listbox = Listbox(course_list_frame, font=("Arial", 18))
+    courses_listbox.grid(row=1, column=0, padx=10, pady=10)
     for item in courses_list(courses_entry):
         courses_listbox.insert(END, " " + item)
 
@@ -334,16 +338,16 @@ program_menu.add_command(label="Exit", command=window.quit)
 options_menu = Menu(my_menu)
 my_menu.add_cascade(label="Options", menu=options_menu)
 options_menu.add_command(label="Add Assignment", command=add_coursework)
-options_menu.add_command(label="View Calendar", command=view_calendar)
+# options_menu.add_command(label="View Calendar", command=view_calendar)
 options_menu.add_command(label="View Courses", command=view_courses)
 
 # frames
-course_list_frame = Frame(window)
 assignment_info_frame = Frame(window)
+calendar_frame = Frame(window)
 due_date_frame = Frame(window)
 due_time_frame = Frame(window)
-calendar_frame = Frame(window)
 enter_frame = Frame(window)
+course_list_frame = Frame(window)
 
 window.mainloop()
 
