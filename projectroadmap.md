@@ -5,8 +5,8 @@
 - [X] Create separate repo for development code
 - [X] Clone repos for existing code & development code to Github Desktop
 - [X] Analyze existing repo in VS Code, noting the function/purpose of each section of code
-- [ ] Place comments for code sections in development repo main.py
-- [ ] Implement changes for assignment tracker program in development code
+- [X] Place comments for code sections in development repo main.py
+- [X] Implement changes for assignment tracker program in development code
 - [ ] Test assignment tracker program, noting any issues
 - [ ] Resolve issues & re-test
 - [ ] Create PPT slide for final presentation
