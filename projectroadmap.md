@@ -11,10 +11,11 @@
   - [X] Exit option
   - [X] Add assignment
   - [X] View course list
-- [ ] Test assignment tracker program, noting any issues:
-  - [ ] Clean up formatting for consistent design
-  - [ ] Delete unused sections of code
+- [X] Test assignment tracker program, noting any issues:
   - [X] Merge Due Date / Due Time into one column to correct sorting issue
   - [X] Make sure all frames are hidden when a new option is selected
 - [ ] Re-test issues to make sure they are resolved - repeat as necessary
+- [ ] Prepare final product:
+  - [ ] Clean up formatting for consistent design
+  - [ ] Delete unused sections of code
 - [ ] Create PowerPoint slide for final presentation
