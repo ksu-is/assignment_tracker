@@ -91,7 +91,9 @@ def add_coursework():
     due_date_label.grid(row=5, column=0, padx=10, pady=10)
 
     today = datetime.date.today()
-    my_cal = Calendar(calendar_frame, selectmode="day", font=("Arial", 18), year=today.year, month=today.month, day=today.day, 
+    # error: date_pattern showing up as ex. 7/18/23
+        # added date_pattern="m/d/y" to fix formatting - 7/19/2023
+    my_cal = Calendar(calendar_frame, selectmode="day", date_pattern="m/d/y", font=("Arial", 18), year=today.year, month=today.month, day=today.day, 
                       background="grey", bordercolor="black", disabledbackground="grey", headersbackground="grey", normalbackground="grey", 
                       foreground="yellow", normalforeground="black", headersforeground="blue")
     my_cal.config(background="black")
@@ -153,11 +155,13 @@ def add_coursework():
         # source code: https://stackoverflow.com/questions/27469182/how-to-sort-excel-sheet-using-python
         # https://youtu.be/1uV_K9GkC-o        
         
-        filepath = "D:\ksu-is\assignment_tracker\planner.xlsx"
+        filepath = "D:\ksu-is\\assignment_tracker\planner.xlsx"
 
         def sort_excel(filepath):
             df = pd.read_excel(filepath)
-            df = df.sort_values(by=['Due Date', 'Due Time'], ascending=[True, True])
+            # df['Due Date'] = pd.to_datetime(df['Due Date'], format='%m/%d/%Y')
+            # df['Due Time'] = pd.to_datetime(df['Due Time'], format='%I:%M %p')
+            df = df.sort_values(by=['Due Date/Time'], ascending=[True])
             df = df.to_excel(filepath, index=False)
             
             '''
@@ -192,18 +196,27 @@ def add_coursework():
         course = course_combobox.get()
         delivery = delivery_combobox.get()
         due_date = set_date_label.cget("text")
-        due_time = hour_spinbox.get() + ":" + minute_spinbox.get() + " " + am_pm_combobox.get()
+        minute = minute_spinbox.get()
+        if int(minute) < 10:
+            minute = "0" + minute
+        due_time = hour_spinbox.get() + ":" + minute + " " + am_pm_combobox.get()
+        date_time = due_date + " " + due_time
         notes = notes_entry.get()
 
         if not os.path.exists(filepath):
             workbook = openpyxl.Workbook()
             sheet = workbook.active
-            heading = ["Title", "Type", "Course", "Delivery", "Due Date", "Due Time", "Notes"]
+            heading = ["Title", "Type", "Course", "Delivery", "Due Date/Time", "Notes"]
             sheet.append(heading)
             workbook.save(filepath)
         workbook = openpyxl.load_workbook(filepath)
         sheet = workbook.active
-        sheet.append([title, type, course, delivery, due_date, due_time, notes])
+        sheet.append([title, type, course, delivery, date_time, notes])
+        # format = sheet.add_format({"num_format": "mm/dd/yyyy hh:mm AM/PM"})
+        # sheet.write("Due Date/Time", format)
+        # for cell in sheet["A"]:
+        # sheet["Due Date/Time"].number_format = "mm/dd/yyyy hh:mm AM/PM"
+        date_time = datetime.datetime.strptime(date_time, "%m/%d/%Y %I:%M %p")
         workbook.save(filepath)
         messagebox.showinfo(title="Confirmation", message="Your assignment has been added to your Excel planner. Please open the file to view changes.")
         sort_excel(filepath)
@@ -261,8 +274,10 @@ def hide_frames():
     course_list_frame.grid_forget()
     assignment_info_frame.grid_forget()
     due_date_frame.grid_forget()
+    due_time_frame.grid_forget()
     calendar_frame.grid_forget()
     submit_frame.grid_forget()
+    enter_frame.grid_forget()
 
 def submit_user_info():
     name = name_entry.get()
