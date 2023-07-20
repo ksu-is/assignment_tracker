@@ -14,6 +14,7 @@
 - [ ] Test assignment tracker program, noting any issues:
   - [ ] Clean up formatting for consistent design
   - [ ] Delete unused sections of code
-  - [ ] Due Date / Due Time columns need to be converted to date/time objects so sorting can be applied
+  - [X] Merge Due Date / Due Time into one column to correct sorting issue
+  - [X] Make sure all frames are hidden when a new option is selected
 - [ ] Re-test issues to make sure they are resolved - repeat as necessary
 - [ ] Create PowerPoint slide for final presentation
