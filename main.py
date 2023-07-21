@@ -1,47 +1,14 @@
 # Base code found at: https://github.com/codefirstio/tkinter-data-entry.git
-# Tkinter tutorials - codemy youtube channel & python docs - https://pythonbasics.org/
+# Tkinter tutorials - codemy youtube channel (https://www.youtube.com/playlist?list=PLCC34OHNcOtoC6GglhF3ncJ5rLwQrLGnV) & python docs (https://pythonbasics.org/)
 
 from tkinter import *
 from tkcalendar import *
 from tkinter import ttk
 from tkinter import messagebox
-import datetime
+from datetime import date
 import os
 import openpyxl
 import pandas as pd
-
-'''
-def view_options():
-    window = Tk()
-    window.title("Menu")
-
-    frame = Frame(window)
-    frame.pack()
-
-    # options frame
-    options_frame = LabelFrame(frame, text="Options")
-    options_frame.grid(row=0, column=0, padx=10, pady=10)
-
-    options_label = Label(options_frame, text="Review the available options. Make a selection to continue.")
-    options_label.grid(row=0, column=0, padx=10, pady=10)
-
-    # menu frame
-    menu_frame = LabelFrame(frame)
-    menu_frame.grid(row=1, column=0, padx=10, pady=10)
-        # option 1: add coursework
-    option_1_button = Button(menu_frame, text="[1] Add Assignment", command=add_coursework)
-    option_1_button.grid(row=1, column=0)
-
-        # option 2: view calendar
-    option_2_button = Button(menu_frame, text="[2] View Calendar", command=view_calendar)
-    option_2_button.grid(row=2, column=0)
-    
-        # option 3: view courses
-    option_3_button = Button(menu_frame, text="[3] View Courses", command=view_courses)
-    option_3_button.grid(row=3, column=0)
-
-    window.mainloop()
-'''
 
 def courses_list(new_entry):
     courses_list = new_entry.get().split(", ")
@@ -90,9 +57,9 @@ def add_coursework():
     due_date_label = Label(assignment_info_frame, text="Due Date:", font=("Arial", 18))
     due_date_label.grid(row=5, column=0, padx=10, pady=10)
 
-    today = datetime.date.today()
-    # error: date_pattern showing up as ex. 7/18/23
-        # added date_pattern="m/d/y" to fix formatting - 7/19/2023
+    today = date.today()
+    # error: date pattern displayed as 2-digit year not 4-digit year
+        # resolved: added date_pattern="m/d/y" to Calendar widget
     my_cal = Calendar(calendar_frame, selectmode="day", date_pattern="m/d/y", font=("Arial", 18), year=today.year, month=today.month, day=today.day, 
                       background="grey", bordercolor="black", disabledbackground="grey", headersbackground="grey", normalbackground="grey", 
                       foreground="yellow", normalforeground="black", headersforeground="blue")
@@ -125,71 +92,25 @@ def add_coursework():
     am_pm_combobox = ttk.Combobox(due_time_frame, values=["AM", "PM"], width=3, font=("Arial", 18))
     am_pm_combobox.grid(row=9, column=3, sticky="w")
 
-    '''
-    def grab_date():
-        if cal.get_date():
-            pass
-        my_label.config(text="Your assignments for " + cal.get_date() + " are:")
-        
-    my_button = Button(window, text="View Assignments", command=grab_date)
-    my_button.pack(pady=20)
-
-    my_label = Label(window, text="")
-    my_label.pack(pady=20)
-    '''
-    
-    '''
-            # Month
-    month_combobox = ttk.Combobox(due_date_frame, values=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"], width=11)
-    month_combobox.grid(row=5, column=1)
-            # Day
-    day_spinbox = Spinbox(due_date_frame, from_=1, to=31, width=3)
-    day_spinbox.grid(row=5, column=2)
-            # Year
-    year_spinbox = Spinbox(due_date_frame, from_=datetime.date.today().year, to=datetime.date.today().year+10, width=5)
-    year_spinbox.grid(row=5, column=3)
-    '''
-
-    # write to excel
-    def write_excel():
-        # source code: https://stackoverflow.com/questions/27469182/how-to-sort-excel-sheet-using-python
-        # https://youtu.be/1uV_K9GkC-o        
-        
+# write to excel
+    def write_excel():        
         filepath = "D:\ksu-is\\assignment_tracker\planner.xlsx"
-
         def sort_excel(filepath):
+            # source code: https://stackoverflow.com/questions/27469182/how-to-sort-excel-sheet-using-python
             df = pd.read_excel(filepath)
-            # df['Due Date'] = pd.to_datetime(df['Due Date'], format='%m/%d/%Y')
-            # df['Due Time'] = pd.to_datetime(df['Due Time'], format='%I:%M %p')
-            df = df.sort_values(by=['Due Date/Time'], ascending=[True])
-            df = df.to_excel(filepath, index=False)
-            
-            '''
-            with pd.ExcelWriter(filepath) as writer:
-                writer.book = openpyxl.load_workbook(filepath)
-                df.to_excel(writer, sheet_name='Planner')
-            
-            
-            # import pandas library and then read in the csv file and put the data in a Pandas dataframe (comments from video)
-            # r is for raw string else is normal string literal and Python can't find the file (comments from video)
-            filepath = 'd:/ksu-is/assignment_tracker/planner.xlsx'
-            df = pd.read_excel(filepath)
-            with pd.ExcelWriter(filepath) as writer:
-                writer.book = openpyxl.load_workbook(filepath)
-                df.to_excel(writer, sheet_name='Planner')
-            '''
-
-            '''
-            planner = pd.read_excel(filepath)
-            # convert the Due Date column to a datetime object (see https://medium.com/swlh/convert-any-dates-in-spreadsheets-using-python-56cd7549cee7#:~:text=Python%20will%20replace%20the%20directives,d%2F%25m%2F%25Y%E2%80%9D.)
-            planner["Due Date"] = pd.to_datetime(planner["Due Date"]).dt.strftime("%m/%d/%Y")
-            planner["Due Time"] = pd.to_datetime(planner["Due Time"]).dt.strftime("%I:%M %p")
-            planner.sort_values(by=["Due Date", "Due Time"], ascending=[True, True])
-            planner.to_excel(filepath)
-            # df1 = pd.DataFrame(df) # load the dataset as a pandas data frame (comments from video)
-            # sort data frame by Due Date and Due Time columns (comments from video)
-            # df2 = df1.sort_values(by=["Due Date", "Due Time"], ascending=[True, True])
-            '''
+        # error: format was not matching "%m/%d/%Y" or "%I:%M %p" (excel displayed datetime object instead of string)
+            # resolved by converting each due date & due time item in dataframe to datetime object, then sorting, then converting back to string
+        # documentation: https://www.programiz.com/python-programming/datetime/strptime
+            # convert each due date & due time item in dataframe to datetime object
+            df['Due Date'] = pd.to_datetime(df['Due Date'], format='%m/%d/%Y')
+            df['Due Time'] = pd.to_datetime(df['Due Time'], format='%I:%M %p')
+            # sort dataframe by due date & due time
+            df = df.sort_values(by=['Due Date', 'Due Time'])
+            # convert each due date & due time item in dataframe to string (to display easy-to-read formatting when writing to excel)
+            df['Due Date'] = df['Due Date'].dt.strftime('%m/%d/%Y')
+            df['Due Time'] = df['Due Time'].dt.strftime('%I:%M %p')
+            # write dataframe to excel
+            df.to_excel(filepath, index=False)
 
         title = title_entry.get()
         type = type_combobox.get()
@@ -199,24 +120,20 @@ def add_coursework():
         minute = minute_spinbox.get()
         if int(minute) < 10:
             minute = "0" + minute
-        due_time = hour_spinbox.get() + ":" + minute + " " + am_pm_combobox.get()
-        date_time = due_date + " " + due_time
+        hour = hour_spinbox.get()
+        if int(hour) < 10:
+            hour = "0" + hour
+        due_time = hour + ":" + minute + " " + am_pm_combobox.get()
         notes = notes_entry.get()
-
         if not os.path.exists(filepath):
             workbook = openpyxl.Workbook()
             sheet = workbook.active
-            heading = ["Title", "Type", "Course", "Delivery", "Due Date/Time", "Notes"]
+            heading = ["Title", "Type", "Course", "Delivery", "Due Date", "Due Time", "Notes"]
             sheet.append(heading)
             workbook.save(filepath)
         workbook = openpyxl.load_workbook(filepath)
         sheet = workbook.active
-        sheet.append([title, type, course, delivery, date_time, notes])
-        # format = sheet.add_format({"num_format": "mm/dd/yyyy hh:mm AM/PM"})
-        # sheet.write("Due Date/Time", format)
-        # for cell in sheet["A"]:
-        # sheet["Due Date/Time"].number_format = "mm/dd/yyyy hh:mm AM/PM"
-        date_time = datetime.datetime.strptime(date_time, "%m/%d/%Y %I:%M %p")
+        sheet.append([title, type, course, delivery, due_date, due_time, notes])
         workbook.save(filepath)
         messagebox.showinfo(title="Confirmation", message="Your assignment has been added to your Excel planner. Please open the file to view changes.")
         sort_excel(filepath)
@@ -291,7 +208,6 @@ def submit_user_info():
         messagebox.showerror(title="Error", message="Please complete all fields.")
 
 # MAIN
-# home screen
 window = Tk()
 window.title("Assignment Tracker")
 
@@ -326,8 +242,8 @@ semester_label = Label(semester_info_frame, text="Semester:", justify="left", fo
 semester_label.grid(row=2, column=0)
 semester_combobox = ttk.Combobox(semester_info_frame, values=["Fall", "Spring", "Summer"], width=10, font=("Arial", 18))
 semester_combobox.grid(row=2, column=1)
-today = datetime.date.today()
-academic_year_spinbox = ttk.Spinbox(semester_info_frame, from_=datetime.date.today().year, to=datetime.date.today().year+5, width=4, font=("Arial", 18))
+today = date.today()
+academic_year_spinbox = ttk.Spinbox(semester_info_frame, from_=date.today().year, to=date.today().year+5, width=4, font=("Arial", 18))
 academic_year_spinbox.grid(row=2, column=2)
 
 courses_info_frame = Frame(window)
@@ -365,14 +281,3 @@ enter_frame = Frame(window)
 course_list_frame = Frame(window)
 
 window.mainloop()
-
-# END OF PROGRAM
-
-'''
-navigation_frame = LabelFrame(frame, text="Navigation Menu")
-navigation_frame.grid(row=4, column=0, padx=10, pady=10)
-exit_button = Button(navigation_frame, text="Exit", command=window.destroy)
-exit_button.grid(row=4, column=0)
-continue_button = Button(navigation_frame, text="Continue", command=view_options)
-continue_button.grid(row=4, column=1)
-'''
