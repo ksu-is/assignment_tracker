@@ -16,7 +16,9 @@
   - [X] Make sure all frames are hidden when a new option is selected
 - [X] Re-test issues to make sure they are resolved - repeat as necessary
   - [X] Kept due date & due time as separate columns - issue was stemming from lack of conversion between datetime objects with pandas and strings in Excel
-- [ ] Prepare final product:
-  - [ ] Clean up formatting for consistent design
+  - [X] Ensure no further issues with re-test
+- [X] Prepare final product:
+  - [X] Clean up formatting for consistent design
   - [X] Delete unused sections of code
+  - [X] Update comments to provide additional documentation & clarification
 - [X] Create PowerPoint slide for final presentation
